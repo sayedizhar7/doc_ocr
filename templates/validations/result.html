@@ -1,0 +1,19 @@
+{% extends "validations/base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Result</h2>
+
+  <div class="result-row">
+    <div><b>Type:</b> {{ vr.doc_type }}</div>
+    <div><b>Document #:</b> {{ vr.doc_number }}</div>
+    <div><b>Name:</b> {{ vr.holder_name|default:"-" }}</div>
+    <div><b>Status:</b> <span class="pill {{ vr.status|lower }}">{{ vr.status }}</span></div>
+    <div><b>Time:</b> {{ vr.created_at }}</div>
+  </div>
+
+  <h3>API Response</h3>
+  <pre class="code">{{ vr.api_response|safe }}</pre>
+
+  <a class="btn" href="/">Back to dashboard</a>
+</div>
+{% endblock %}

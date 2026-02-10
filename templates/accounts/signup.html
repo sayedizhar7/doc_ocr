@@ -1,0 +1,13 @@
+{% extends "validations/base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Create account</h2>
+  <p class="muted">After signup, admin approval is required.</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Submit request</button>
+  </form>
+  <p class="muted">Already have an account? <a href="/accounts/login/">Login</a></p>
+</div>
+{% endblock %}

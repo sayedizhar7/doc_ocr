@@ -1,0 +1,46 @@
+{% extends "validations/base.html" %}
+{% block content %}
+<div class="grid">
+  <div class="card">
+    <h2>Validate document</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">Validate</button>
+    </form>
+    <p class="muted">Enter document number OR upload image/PDF. OCR will try to extract the number.</p>
+  </div>
+
+  <div class="card">
+    <h2>History</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Document #</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Date/Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for h in history %}
+            <tr>
+              <td>{{ h.doc_type }}</td>
+              <td>{{ h.doc_number }}</td>
+              <td>{{ h.holder_name|default:"-" }}</td>
+              <td><span class="pill {{ h.status|lower }}">{{ h.status }}</span></td>
+              <td>{{ h.created_at }}</td>
+              <td><a href="/result/{{ h.id }}/">View</a></td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="6" class="muted">No validations yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
